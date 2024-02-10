@@ -5,8 +5,9 @@ type CellContent = string | JSX.Element | number;
 
 export type ColumnDefinition<T> = {
   title: CellContent;
-  getValue: (dataVal: T) => CellContent;
   key: string;
+  getValue: (dataVal: T) => CellContent;
+  getSortValue?: (dataVal: T) => number | string;
 };
 
 export const TableTable = <T,>({
@@ -41,10 +42,16 @@ export const TableTable = <T,>({
     }
     return "";
   };
+  const getSortValue = (col: ColumnDefinition<T>, item: any) => {
+    if (col.getSortValue) {
+      return col.getSortValue(item);
+    }
+    return col.getValue(item);
+  };
   const sortedData = sortMode
     ? orderBy(
         data,
-        (item) => sortMode.col.getValue(item),
+        (item) => getSortValue(sortMode.col, item),
         sortMode?.asc ? "asc" : "desc"
       )
     : data;
@@ -58,7 +65,7 @@ export const TableTable = <T,>({
       style={{
         display: "grid",
         gridTemplateColumns: columns.map((_) => "1fr").join(" "),
-        backgroundColor: "lightgray",
+        backgroundColor: "lightgrey",
       }}
     >
       {columns.map((col) => (
