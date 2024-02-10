@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { orderBy } from "lodash";
+import { useState } from 'react';
+import { orderBy } from 'lodash';
 
 type CellContent = string | JSX.Element | number;
 
@@ -21,11 +21,13 @@ export const TableTable = <T,>({
     col: ColumnDefinition<T>;
     asc: boolean;
   } | null>(null);
+
   const sortBy = (col: ColumnDefinition<T>) => {
     if (!sortMode) {
       setSortMode({ col, asc: true });
       return;
     }
+
     if (sortMode.col === col) {
       if (sortMode.asc) {
         setSortMode({ col, asc: false });
@@ -36,49 +38,53 @@ export const TableTable = <T,>({
     }
     setSortMode({ col, asc: true });
   };
+
   const getSortIcon = (col: ColumnDefinition<T>) => {
     if (col === sortMode?.col) {
-      return sortMode?.asc ? "[ASC]" : "[DESC]";
+      return sortMode?.asc ? '[ASC]' : '[DESC]';
     }
-    return "";
+    return '';
   };
-  const getSortValue = (col: ColumnDefinition<T>, item: any) => {
+
+  const getSortValue = <T,>(col: ColumnDefinition<T>, item: T) => {
     if (col.getSortValue) {
       return col.getSortValue(item);
     }
     return col.getValue(item);
   };
+
   const sortedData = sortMode
     ? orderBy(
-        data,
-        (item) => getSortValue(sortMode.col, item),
-        sortMode?.asc ? "asc" : "desc"
-      )
+      data,
+      (item) => getSortValue(sortMode.col, item),
+      sortMode?.asc ? 'asc' : 'desc',
+    )
     : data;
+
   const dataCells = sortedData.flatMap((row) =>
-    columns.map((col) => col.getValue(row))
+    columns.map((col) => col.getValue(row)),
   );
-  console.log({ dataCells, data });
+
   return (
     <div
       id="tabletable"
       style={{
-        display: "grid",
-        gridTemplateColumns: columns.map((_) => "1fr").join(" "),
-        backgroundColor: "lightgrey",
+        display: 'grid',
+        gridTemplateColumns: columns.map(() => '1fr').join(' '),
+        backgroundColor: 'lightgrey',
       }}
     >
       {columns.map((col) => (
         <div
-          style={{ userSelect: "none" }}
+          style={{ userSelect: 'none' }}
           key={col.key}
           onClick={() => sortBy(col)}
         >
           {col.title} {getSortIcon(col)}
         </div>
       ))}
-      {dataCells.map((row) => (
-        <div>{row}</div>
+      {dataCells.map((row, index) => (
+        <div key={`${row}-${index}`}>{row}</div>
       ))}
     </div>
   );
