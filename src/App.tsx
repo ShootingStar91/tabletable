@@ -18,6 +18,7 @@ const columns: Array<ColumnDefinition<Todo>> = [
     getValue: (todo) => todo.title,
     getSortValue: (todo) => todo.title.length,
     key: 'name',
+    important: true,
   },
   {
     title: 'Completed',
@@ -39,7 +40,7 @@ const App = () => {
       }}
     >
       <TableTable
-        tableStyle={{ maxWidth: '1500px' }}
+        tableStyle={{ width: '1500px' }}
         columns={columns}
         data={cutData}
       />

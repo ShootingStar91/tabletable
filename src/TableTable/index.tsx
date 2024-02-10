@@ -15,6 +15,8 @@ export type ColumnDefinition<T> = {
   key: string;
   getValue: (dataVal: T) => CellContent;
   getSortValue?: (dataVal: T) => number | string;
+  getFilterValue?: (dataVal: T) => number | string;
+  important?: boolean;
 };
 
 export const TableTable = <T,>({
@@ -111,7 +113,9 @@ export const TableTable = <T,>({
         id="tabletable"
         style={{
           display: 'grid',
-          gridTemplateColumns: columns.map(() => 'auto').join(' '),
+          gridTemplateColumns: columns
+            .map((col) => (col.important ? '1fr' : 'max-content'))
+            .join(' '),
           ...tableStyle,
         }}
       >
@@ -131,7 +135,7 @@ export const TableTable = <T,>({
           </div>
         ))}
         {pageToShow.map((row, index) => (
-          <div style={{ ...defaultBorderStyles }} key={`${row}-${index}`}>
+          <div style={{ ...defaultBorderStyles, paddingLeft: '3px', paddingRight: '3px' }} key={`${row}-${index}`}>
             {row}
           </div>
         ))}
