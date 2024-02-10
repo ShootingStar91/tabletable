@@ -11,6 +11,6 @@ Idea is to have features such as
 * Data export to CSV / other formats
 * Pagination
 
-[Actual component](src/TableTable) is in TableTable-folder, [App.tsx](src/App.tsx) contains minimum setup for testing.
+[Actual component](src/TableTable/index.tsx) is in TableTable-folder, [App.tsx](src/App.tsx) contains minimum setup for testing.
 
-[Licence](LICENCE)
+[Licence](LICENCE) (not applicable to test data which is from https://jsonplaceholder.typicode.com)
