@@ -6,10 +6,18 @@ Built on CSS grid, React, Typescript.
 
 Idea is to have features such as
 
-* JSX or strings/numbers in cells and headers
-* Filtering and sorting based on either cell value or a custom value getter
-* Data export to CSV / other formats
-* Pagination
+- [x] JSX or strings/numbers in cells and headers
+- [x] Filtering sorting based on either cell value or a custom value getter
+- [ ] Same with filtering
+- [ ] Data export to CSV / other formats
+- [ ] Pagination
+- [ ] Easy-to-customize styles
+
+Possible further features
+
+- [ ] Columns can be made clickable to fold/unfold
+- [ ] First column can be made sticky
+- [ ] First row can be made sticky (showing total values, possibly affected by filters/sorts)
 
 [Actual component](src/TableTable/index.tsx) is in TableTable-folder, [App.tsx](src/App.tsx) contains minimum setup for testing.
 
