@@ -1,38 +1,34 @@
 import { TableTable } from './TableTable';
 import { ColumnDefinition } from './TableTable';
+import { data, Todo } from './testData';
 
-const columns: Array<ColumnDefinition<DataValue>> = [
+const columns: Array<ColumnDefinition<Todo>> = [
   {
-    title: (
-      <span
-        style={{
-          color: 'green',
-          backgroundColor: 'lightblue',
-          overflow: 'scroll',
-          maxWidth: '100px',
-        }}
-      >
-        Points
-      </span>
-    ),
-    getValue: (val: DataValue) => val.points.toString().padStart(5, '0'),
-    getSortValue: (val: DataValue) => val.points,
-    key: 'points',
+    title: 'Id',
+    getValue: (todo: Todo) => todo.id,
+    key: 'id',
   },
-  { title: 'time', getValue: (val: DataValue) => val.time, key: 'time' },
+  {
+    title: 'User Id',
+    getValue: (todo: Todo) => todo.userId,
+    key: 'user-id',
+  },
+  {
+    title: 'Name',
+    getValue: (todo: Todo) => todo.title,
+    key: 'name',
+  },
+  {
+    title: 'Completed',
+    getValue: (todo: Todo) => todo.completed.toString(),
+    key: 'completed',
+  },
 ];
-
-type DataValue = { points: number; time: string };
-
-const data: Array<DataValue> = [5, 3, 9, 4, 0, 6, 2, 8].map((num) => ({
-  points: num * 2,
-  time: (num * 100).toString().padStart(5, '0'),
-}));
 
 const App = () => {
   return (
-    <div>
-      <TableTable columns={columns} data={data} />
+    <div style={{ padding: '20px', maxWidth: '1400px', margin: 'auto', backgroundColor: 'lightseagreen' }}>
+      <TableTable tableStyle={{ maxWidth: '1000px' }} columns={columns} data={data} />
     </div>
   );
 };

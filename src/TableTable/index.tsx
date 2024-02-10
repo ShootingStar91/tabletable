@@ -13,9 +13,11 @@ export type ColumnDefinition<T> = {
 export const TableTable = <T,>({
   columns,
   data,
+  tableStyle
 }: {
-  columns: Array<ColumnDefinition<T>>;
-  data: Array<T>;
+  columns: Array<ColumnDefinition<T>>,
+  data: Array<T>,
+  tableStyle: React.CSSProperties | undefined,
 }) => {
   const [sortMode, setSortMode] = useState<{
     col: ColumnDefinition<T>;
@@ -69,8 +71,8 @@ export const TableTable = <T,>({
       id="tabletable"
       style={{
         display: 'grid',
-        gridTemplateColumns: columns.map(() => '1fr').join(' '),
-        backgroundColor: 'lightgrey',
+        gridTemplateColumns: columns.map(() => 'auto').join(' '),
+        ...tableStyle
       }}
     >
       {columns.map((col) => (
