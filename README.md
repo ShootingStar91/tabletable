@@ -8,9 +8,9 @@ Idea is to have features such as
 
 - [x] JSX or strings/numbers in cells and headers
 - [x] Filtering sorting based on either cell value or a custom value getter
+- [x] Pagination
 - [ ] Same with filtering
 - [ ] Data export to CSV / other formats
-- [ ] Pagination
 - [ ] Easy-to-customize styles
 
 Possible further features
