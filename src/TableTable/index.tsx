@@ -27,7 +27,6 @@ export const TableTable = <T,>({
       setSortMode({ col, asc: true });
       return;
     }
-
     if (sortMode.col === col) {
       if (sortMode.asc) {
         setSortMode({ col, asc: false });
