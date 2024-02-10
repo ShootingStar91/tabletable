@@ -27,19 +27,21 @@ const columns: Array<ColumnDefinition<Todo>> = [
 ];
 
 const App = () => {
+  const cutData = data.slice(0, 101);
+
   return (
     <div
       style={{
         padding: '20px',
-        maxWidth: '1400px',
+        maxWidth: '1500px',
         margin: 'auto',
         backgroundColor: 'lightseagreen',
       }}
     >
       <TableTable
-        tableStyle={{ maxWidth: '1000px' }}
+        tableStyle={{ maxWidth: '1500px' }}
         columns={columns}
-        data={data}
+        data={cutData}
       />
     </div>
   );
