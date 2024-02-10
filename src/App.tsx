@@ -5,22 +5,23 @@ import { data, Todo } from './testData';
 const columns: Array<ColumnDefinition<Todo>> = [
   {
     title: 'Id',
-    getValue: (todo: Todo) => todo.id,
+    getValue: todo => todo.id,
     key: 'id',
   },
   {
     title: 'User Id',
-    getValue: (todo: Todo) => todo.userId,
+    getValue: todo => todo.userId,
     key: 'user-id',
   },
   {
     title: 'Name',
-    getValue: (todo: Todo) => todo.title,
+    getValue: todo => todo.title,
+    getSortValue: todo => todo.title.length,
     key: 'name',
   },
   {
     title: 'Completed',
-    getValue: (todo: Todo) => todo.completed.toString(),
+    getValue: todo => todo.completed.toString(),
     key: 'completed',
   },
 ];

@@ -3,6 +3,13 @@ import { orderBy } from 'lodash';
 
 type CellContent = string | JSX.Element | number;
 
+const defaultBorderStyles = {
+  paddingBottom: '1px',
+  borderStyle: 'hidden hidden solid hidden',
+  borderColor: 'black',
+  borderWidth: '1px'
+};
+
 export type ColumnDefinition<T> = {
   title: CellContent;
   key: string;
@@ -13,11 +20,11 @@ export type ColumnDefinition<T> = {
 export const TableTable = <T,>({
   columns,
   data,
-  tableStyle
+  tableStyle,
 }: {
-  columns: Array<ColumnDefinition<T>>,
-  data: Array<T>,
-  tableStyle: React.CSSProperties | undefined,
+  columns: Array<ColumnDefinition<T>>;
+  data: Array<T>;
+  tableStyle: React.CSSProperties | undefined;
 }) => {
   const [sortMode, setSortMode] = useState<{
     col: ColumnDefinition<T>;
@@ -42,9 +49,9 @@ export const TableTable = <T,>({
 
   const getSortIcon = (col: ColumnDefinition<T>) => {
     if (col === sortMode?.col) {
-      return sortMode?.asc ? '[ASC]' : '[DESC]';
+      return sortMode?.asc ? '^' : 'v';
     }
-    return '';
+    return ' ';
   };
 
   const getSortValue = <T,>(col: ColumnDefinition<T>, item: T) => {
@@ -72,12 +79,18 @@ export const TableTable = <T,>({
       style={{
         display: 'grid',
         gridTemplateColumns: columns.map(() => 'auto').join(' '),
-        ...tableStyle
+        ...tableStyle,
       }}
     >
       {columns.map((col) => (
         <div
-          style={{ userSelect: 'none' }}
+          style={{
+            userSelect: 'none',
+            ...defaultBorderStyles,
+            paddingBottom: '5px',
+            borderWidth: '2px',
+            fontWeight: 'bold'
+          }}
           key={col.key}
           onClick={() => sortBy(col)}
         >
@@ -85,7 +98,13 @@ export const TableTable = <T,>({
         </div>
       ))}
       {dataCells.map((row, index) => (
-        <div key={`${row}-${index}`}>{row}</div>
+        <div
+          style={{...defaultBorderStyles
+          }}
+          key={`${row}-${index}`}
+        >
+          {row}
+        </div>
       ))}
     </div>
   );
